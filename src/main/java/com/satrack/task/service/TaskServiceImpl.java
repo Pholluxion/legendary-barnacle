@@ -70,6 +70,7 @@ public class TaskServiceImpl implements  TaskService{
         taskDTO.setTitle(task.getTitle());
         taskDTO.setDescription(task.getDescription());
         taskDTO.setIsTaskCompleted(task.getIsTaskCompleted());
+        taskDTO.setEndDate(task.getEndDate());
         taskDTO.setPriority(task.getPriority());
         taskDTO.setCategories(task.getCategories().stream()
                 .map(Category::getId)
@@ -82,6 +83,7 @@ public class TaskServiceImpl implements  TaskService{
         task.setDescription(taskDTO.getDescription());
         task.setIsTaskCompleted(taskDTO.getIsTaskCompleted());
         task.setPriority(taskDTO.getPriority());
+        task.setEndDate(taskDTO.getEndDate());
         final List<Category> types = categoryRepository.findAllById(
                 taskDTO.getCategories() == null ? Collections.emptyList() : taskDTO.getCategories());
         if (types.size() != (taskDTO.getCategories() == null ? 0 : taskDTO.getCategories().size())) {

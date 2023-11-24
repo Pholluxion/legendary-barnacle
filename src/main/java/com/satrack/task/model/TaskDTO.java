@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -26,6 +27,8 @@ public class TaskDTO {
     private Boolean isTaskCompleted;
 
     private List<Long> categories;
+
+    private LocalDate endDate;
 
     private Priority priority;
 

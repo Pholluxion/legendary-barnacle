@@ -3,6 +3,7 @@ package com.satrack.task.domain;
 import com.satrack.task.model.Priority;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Set;
 
@@ -56,6 +57,9 @@ public class Task {
     )
     @OnDelete(action = OnDeleteAction.SET_NULL)
     private Set<Category> categories;
+
+    @Column(nullable = false)
+    private LocalDate endDate;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
