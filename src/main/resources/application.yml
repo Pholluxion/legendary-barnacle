@@ -1,0 +1,30 @@
+spring:
+  port: ${PORT}
+  datasource:
+    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+    username: ${PGUSER}
+    password: ${PGPASSWORD}
+    dbcp2:
+      max-wait-millis: 30000
+      validation-query: select 1
+      validation-query-timeout: 30
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+        use_sql_comments: false
+        default_batch_fetch_size: 100
+        id:
+          new_generator_mappings: true
+
+
+springdoc:
+  pathsToMatch: /api/v1/**
