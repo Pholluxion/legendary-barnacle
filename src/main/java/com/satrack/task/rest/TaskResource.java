@@ -4,6 +4,8 @@ import com.satrack.task.model.TaskDTO;
 import com.satrack.task.service.TaskServiceImpl;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
+
+import java.net.URI;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,10 +41,9 @@ public class TaskResource {
     }
 
     @PostMapping
-    @ApiResponse(responseCode = "201")
     public ResponseEntity<Long> createTask(@RequestBody @Valid final TaskDTO taskDTO) {
         final Long createdId = taskServiceImpl.create(taskDTO);
-        return new ResponseEntity<>(createdId, HttpStatus.CREATED);
+        return  ResponseEntity.created(URI.create("/api/v1/tasks/" + createdId)).body(createdId);
     }
 
     @PutMapping("/{id}")
@@ -53,7 +54,6 @@ public class TaskResource {
     }
 
     @DeleteMapping("/{id}")
-    @ApiResponse(responseCode = "204")
     public ResponseEntity<Void> deleteTask(@PathVariable(name = "id") final Long id) {
         taskServiceImpl.delete(id);
         return ResponseEntity.noContent().build();

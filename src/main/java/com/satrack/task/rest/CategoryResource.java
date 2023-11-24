@@ -4,6 +4,8 @@ import com.satrack.task.model.CategoryDTO;
 import com.satrack.task.service.CategoryServiceImpl;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
+
+import java.net.URI;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,10 +41,9 @@ public class CategoryResource {
     }
 
     @PostMapping
-    @ApiResponse(responseCode = "201")
     public ResponseEntity<Long> createCategory(@RequestBody @Valid final CategoryDTO categoryDTO) {
         final Long createdId = categoryServiceImpl.create(categoryDTO);
-        return new ResponseEntity<>(createdId, HttpStatus.CREATED);
+        return ResponseEntity.created(URI.create("/api/v1/categories/" + createdId)).body(createdId);
     }
 
     @PutMapping("/{id}")
@@ -53,7 +54,6 @@ public class CategoryResource {
     }
 
     @DeleteMapping("/{id}")
-    @ApiResponse(responseCode = "204")
     public ResponseEntity<Void> deleteCategory(@PathVariable(name = "id") final Long id) {
         categoryServiceImpl.delete(id);
         return ResponseEntity.noContent().build();
