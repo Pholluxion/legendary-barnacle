@@ -1,16 +1,8 @@
 package com.satrack.task.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import com.satrack.task.model.Priority;
+import jakarta.persistence.*;
+
 import java.time.OffsetDateTime;
 import java.util.Set;
 
@@ -48,6 +40,10 @@ public class Task {
 
     @Column(columnDefinition = "text")
     private String description;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Priority priority;
 
     @Column
     private Boolean isTaskCompleted;

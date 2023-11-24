@@ -30,31 +30,6 @@ public class TaskServiceImpl implements  TaskService{
 
 
 
-
-    private TaskDTO mapToDTO(final Task task, final TaskDTO taskDTO) {
-        taskDTO.setId(task.getId());
-        taskDTO.setTitle(task.getTitle());
-        taskDTO.setDescription(task.getDescription());
-        taskDTO.setIsTaskCompleted(task.getIsTaskCompleted());
-        taskDTO.setTypes(task.getTypes().stream()
-                .map(Category::getId)
-                .toList());
-        return taskDTO;
-    }
-
-    private Task mapToEntity(final TaskDTO taskDTO, final Task task) {
-        task.setTitle(taskDTO.getTitle());
-        task.setDescription(taskDTO.getDescription());
-        task.setIsTaskCompleted(taskDTO.getIsTaskCompleted());
-        final List<Category> types = categoryRepository.findAllById(
-                taskDTO.getTypes() == null ? Collections.emptyList() : taskDTO.getTypes());
-        if (types.size() != (taskDTO.getTypes() == null ? 0 : taskDTO.getTypes().size())) {
-            throw new NotFoundException("Uno o más tipos no fueron encontrados");
-        }
-        task.setTypes(new HashSet<>(types));
-        return task;
-    }
-
     @Override
     public List<TaskDTO> findAll() {
         final List<Task> tasks = taskRepository.findAll(Sort.by("id"));
@@ -90,5 +65,29 @@ public class TaskServiceImpl implements  TaskService{
         taskRepository.deleteById(id);
     }
 
+    private TaskDTO mapToDTO(final Task task, final TaskDTO taskDTO) {
+        taskDTO.setId(task.getId());
+        taskDTO.setTitle(task.getTitle());
+        taskDTO.setDescription(task.getDescription());
+        taskDTO.setIsTaskCompleted(task.getIsTaskCompleted());
+        taskDTO.setPriority(task.getPriority());
+        taskDTO.setTypes(task.getTypes().stream()
+                .map(Category::getId)
+                .toList());
+        return taskDTO;
+    }
 
+    private Task mapToEntity(final TaskDTO taskDTO, final Task task) {
+        task.setTitle(taskDTO.getTitle());
+        task.setDescription(taskDTO.getDescription());
+        task.setIsTaskCompleted(taskDTO.getIsTaskCompleted());
+        task.setPriority(taskDTO.getPriority());
+        final List<Category> types = categoryRepository.findAllById(
+                taskDTO.getTypes() == null ? Collections.emptyList() : taskDTO.getTypes());
+        if (types.size() != (taskDTO.getTypes() == null ? 0 : taskDTO.getTypes().size())) {
+            throw new NotFoundException("Uno o más tipos no fueron encontrados");
+        }
+        task.setTypes(new HashSet<>(types));
+        return task;
+    }
 }

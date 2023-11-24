@@ -27,4 +27,6 @@ public class TaskDTO {
 
     private List<Long> types;
 
+    private Priority priority;
+
 }
