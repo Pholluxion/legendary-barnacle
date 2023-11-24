@@ -10,7 +10,7 @@ import jakarta.transaction.Transactional;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -71,7 +71,7 @@ public class TaskServiceImpl implements  TaskService{
         taskDTO.setDescription(task.getDescription());
         taskDTO.setIsTaskCompleted(task.getIsTaskCompleted());
         taskDTO.setPriority(task.getPriority());
-        taskDTO.setTypes(task.getTypes().stream()
+        taskDTO.setCategories(task.getCategories().stream()
                 .map(Category::getId)
                 .toList());
         return taskDTO;
@@ -83,11 +83,11 @@ public class TaskServiceImpl implements  TaskService{
         task.setIsTaskCompleted(taskDTO.getIsTaskCompleted());
         task.setPriority(taskDTO.getPriority());
         final List<Category> types = categoryRepository.findAllById(
-                taskDTO.getTypes() == null ? Collections.emptyList() : taskDTO.getTypes());
-        if (types.size() != (taskDTO.getTypes() == null ? 0 : taskDTO.getTypes().size())) {
+                taskDTO.getCategories() == null ? Collections.emptyList() : taskDTO.getCategories());
+        if (types.size() != (taskDTO.getCategories() == null ? 0 : taskDTO.getCategories().size())) {
             throw new NotFoundException("Uno o más tipos no fueron encontrados");
         }
-        task.setTypes(new HashSet<>(types));
+        task.setCategories(new HashSet<>(types));
         return task;
     }
 }

@@ -55,7 +55,7 @@ public class Task {
             inverseJoinColumns = @JoinColumn(name = "categoryId")
     )
     @OnDelete(action = OnDeleteAction.SET_NULL)
-    private Set<Category> types;
+    private Set<Category> categories;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

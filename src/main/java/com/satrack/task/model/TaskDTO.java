@@ -25,7 +25,7 @@ public class TaskDTO {
 
     private Boolean isTaskCompleted;
 
-    private List<Long> types;
+    private List<Long> categories;
 
     private Priority priority;
 

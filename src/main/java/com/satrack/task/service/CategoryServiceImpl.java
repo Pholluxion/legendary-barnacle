@@ -55,7 +55,7 @@ public class CategoryServiceImpl implements CategoryService {
         final Category category = categoryRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
         taskRepository.findAllByTypes(category)
-                .forEach(task -> task.getTypes().remove(category));
+                .forEach(task -> task.getCategories().remove(category));
         categoryRepository.delete(category);
     }
 
