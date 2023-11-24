@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-    List<Task> findAllByTypes(Category category);
+    List<Task> findAllByCategories(Category category);
 
 }
